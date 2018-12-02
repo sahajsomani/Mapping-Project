@@ -1,5 +1,5 @@
 
-public class Canvas implements JPanel {
+public class Canvas {
 
   public Canvas(){
     //this is a test contructor
