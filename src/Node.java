@@ -17,13 +17,9 @@ public class Node implements Comparable<Node> {
     this.id = id;
     this.isVisited = false; //set to false for initialization
     adjlist = new ArrayList<Node>();
-    path = new LinkedList<Node>();
+    pathlist = new LinkedList<Node>();
     this.weight = Double.MAX_VALUE;
   }//end constructor
-
-  public Node() {
-    this.Node(null, 0, 0);
-  }
 
   public void setId(String id) { this.id = id; }
 

@@ -4,7 +4,7 @@ import java.nio.file.*;
 
 public class Graph {
   //using a Hashmap to prevent duplicate intersecions
-  Hashmap<String, Node> vertices;
+  HashMap<String, Node> vertices;
 
   //These will be useful for painting the graph
 	double maxlat;
@@ -14,13 +14,14 @@ public class Graph {
 
   //Constructing a graph from the text file
   public Graph(String filename) {
+	  vertices = new HashMap<String, Node>();
     try {
       String contents = new String(Files.readAllBytes(Paths.get(filename))); // reading the file
       String[] lines = contents.split("\n");
 
       for(int i = 0; i < lines.length; i++) {
         String[] temp = lines[i].split("\\s+");
-
+        
         if(temp[0].equals("i")) {
           this.addVertice(temp[1], Double.parseDouble(temp[2]), Double.parseDouble(temp[3]));
         } else if (temp[0].equals("r")) {
@@ -33,8 +34,8 @@ public class Graph {
   }//end constructor
 
   public void addVertice(String id, double lat, double lon) {
-
-		vertices.put(id, new Node(id, lat, lon)); //add Node to HashSet
+	  	Node n = new Node(id, lat, lon);
+		vertices.put(id, n); //add Node to HashMap
 
 		// keeping track of max and min lat and lon
 		if (lat > maxlat) {
@@ -60,19 +61,21 @@ public class Graph {
     int visited = 0;
     start.setWeight(0);
     Collection<Node> d = vertices.values();
-    PriorityQueue<Node> queue = new PriorityQueue(d.size(), new ourComparator());
-    for(int i = 0; i < d.size(); i++) {
-      queue.add(d[i]);
+    PriorityQueue<Node> queue = new PriorityQueue<Node>(d.size(), new ourComparator());
+    
+    Iterator<Node> it = d.iterator();
+    while(it.hasNext()) {
+    		queue.add(it.next());
     }
 
     while(visited < d.size()) {
       Node min = queue.poll();
       ArrayList<Node> neighbors = min.getAdjList();
       for(int i = 0; i < neighbors.size(); i++) {
-        if(!neighbors[i].getIsVisited() && (min.getWeight() + Node.computeEdge(min, neighbors[i]) < neighbors[i].getWeight())) {
-          neighbors[i].setWeight(min.getWeight() + Node.computeEdge(min, neighbors[i]));
-          neighbors[i].setPathList(min.getPathList);
-          neighbors[i].addPathList(min);
+        if(!neighbors.get(i).getIsVisited() && (min.getWeight() + Node.computeEdge(min, neighbors.get(i)) < neighbors.get(i).getWeight())) {
+        		neighbors.get(i).setWeight(min.getWeight() + Node.computeEdge(min, neighbors.get(i)));
+        		neighbors.get(i).setPathList(min.getPathList());
+        		neighbors.get(i).addPathList(min);
         }
       }
       vertices.get(min.getId()).setIsVisited(true);
@@ -82,7 +85,7 @@ public class Graph {
       }
     }
 
-    return end.getPathList;
+    return end.getPathList();
 
   }
 
