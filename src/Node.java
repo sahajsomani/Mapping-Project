@@ -2,7 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Node implements Comparable<Node> {
-  private ArrayList<String> adjlist;
+  private ArrayList<Node> adjlist;
+  private LinkedList<Node> pathlist;
   private double lon;
   private double lat;
   private String id;
@@ -15,12 +16,13 @@ public class Node implements Comparable<Node> {
     this.lat = lat;
     this.id = id;
     this.isVisited = false; //set to false for initialization
-    adjlist = new ArrayList<String>();
+    adjlist = new ArrayList<Node>();
+    path = new LinkedList<Node>();
     this.weight = Double.MAX_VALUE;
   }//end constructor
 
   public Node() {
-    // this.Node(null, 0, 0);
+    this.Node(null, 0, 0);
   }
 
   public void setId(String id) { this.id = id; }
@@ -33,7 +35,11 @@ public class Node implements Comparable<Node> {
 
   public void setWeight(double weight) { this.weight = weight; }
 
-  public void addNeighbor(Node neighbor) { adjlist.add(neighbor.getId()); }
+  public void addNeighbor(Node neighbor) { this.adjlist.add(neighbor); }
+
+  public void setPathList(LinkedList<Node> path) { this.pathlist = path; }
+
+  public void addPathList(Node path) { this.pathlist.add(path); }
 
   public String getId() { return id; }
 
@@ -45,7 +51,9 @@ public class Node implements Comparable<Node> {
 
   public double getWeight() { return weight; }
 
-  public ArrayList<String> getAdjList() { return adjlist; }
+  public ArrayList<Node> getAdjList() { return adjlist; }
+
+  public LinkedList<Node> getPathList() { return pathlist; }
 
   public static double computeEdge(Node start, Node end) {
     int EARTH_RADIUS = 3959;
@@ -69,13 +77,12 @@ public class Node implements Comparable<Node> {
   @Override
   public int compareTo(Node n) {
     if(this.getWeight() > n.getWeight()) {
-      return 1;
+      return -1;
     } else if(this.getWeight() == n.getWeight()) {
       return 0;
     } else {
-      return -1;
+      return 1;
     }
   }//end compareTo
-
 
 }//end Node class

@@ -5,7 +5,7 @@ public class Edge {
 	// constructor
 	public Edge(String id, Node o, Node d) {
 		this.id = id;
-		this.weight = distance(o.lat, o.lon, d.lat, d.lon);
+		this.weight = distance(o.getLat(), o.getLon(), d.getLat(), d.getLon());
 	}
 
 	// find distance between two edges (in meters)
