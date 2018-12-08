@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 
 public class Node implements Comparable<Node> {
   private ArrayList<Node> adjlist;
@@ -18,6 +17,7 @@ public class Node implements Comparable<Node> {
     this.isVisited = false; //set to false for initialization
     adjlist = new ArrayList<Node>();
     pathlist = new LinkedList<Node>();
+    pathlist.add(this);
     this.weight = Double.MAX_VALUE;
   }//end constructor
 
@@ -73,11 +73,11 @@ public class Node implements Comparable<Node> {
   @Override
   public int compareTo(Node n) {
     if(this.getWeight() > n.getWeight()) {
-      return -1;
+      return 1;
     } else if(this.getWeight() == n.getWeight()) {
       return 0;
     } else {
-      return 1;
+      return -1;
     }
   }//end compareTo
 

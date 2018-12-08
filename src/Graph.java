@@ -1,9 +1,8 @@
-import java.io.*;
 import java.util.*;
 import java.nio.file.*;
 
 public class Graph {
-  //using a Hashmap to prevent duplicate intersecions
+  //using a Hashmap to prevent duplicate intersections
   HashMap<String, Node> vertices;
 
   //These will be useful for painting the graph
@@ -58,35 +57,36 @@ public class Graph {
   }
 
   public LinkedList<Node> shortestPath(Node start, Node end) {
-    int visited = 0;
-    start.setWeight(0);
-    Collection<Node> d = vertices.values();
-    PriorityQueue<Node> queue = new PriorityQueue<Node>(d.size(), new ourComparator());
-    
-    Iterator<Node> it = d.iterator();
-    while(it.hasNext()) {
-    		queue.add(it.next());
-    }
-
-    while(visited < d.size()) {
-      Node min = queue.poll();
-      ArrayList<Node> neighbors = min.getAdjList();
-      for(int i = 0; i < neighbors.size(); i++) {
-        if(!neighbors.get(i).getIsVisited() && (min.getWeight() + Node.computeEdge(min, neighbors.get(i)) < neighbors.get(i).getWeight())) {
-        		neighbors.get(i).setWeight(min.getWeight() + Node.computeEdge(min, neighbors.get(i)));
-        		neighbors.get(i).setPathList(min.getPathList());
-        		neighbors.get(i).addPathList(min);
-        }
+	  
+	  Node min = null;
+	  start.setWeight(0);
+	  PriorityQueue<Node> queue = new PriorityQueue<Node>(vertices.size(), new ourComparator());
+	  
+      queue.add(start); 
+      
+      while(!queue.isEmpty() && min != end) {
+    	  
+    	  min = queue.poll();
+	      if(min.getIsVisited()) {
+	    	  continue;
+	      }
+      	  min.setIsVisited(true);
+      	  ArrayList<Node> neighbors = min.getAdjList(); 
+      	
+      	  for(int i = 0; i < neighbors.size(); i++) {
+      		  if(!neighbors.get(i).getIsVisited() && ((min.getWeight() + Node.computeEdge(min, neighbors.get(i))) < neighbors.get(i).getWeight())) {
+      			  neighbors.get(i).setWeight(min.getWeight() + Node.computeEdge(min, neighbors.get(i)));
+      			  LinkedList<Node> temp = new LinkedList<Node>();
+      			  for(Node j : min.getPathList()) {
+      				  temp.add(j);
+      			  }
+      			  neighbors.get(i).setPathList(temp);
+      			  neighbors.get(i).addPathList(neighbors.get(i));
+      			  queue.add(neighbors.get(i));
+      		  }
+      	  }		
       }
-      vertices.get(min.getId()).setIsVisited(true);
-      visited++;
-      if(min.equals(end)) {
-        visited = d.size();
-      }
-    }
-
-    return end.getPathList();
-
+      return end.getPathList();
   }
 
   private class ourComparator implements Comparator<Node> {
