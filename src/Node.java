@@ -80,5 +80,13 @@ public class Node implements Comparable<Node> {
       return -1;
     }
   }//end compareTo
-
+ 
+  @Override
+  public String toString() {
+	  String result = "";
+	  for(Node i : pathlist) {
+		  result += (i.getId() + " ");
+	  }
+	  return result;
+  }
 }//end Node class

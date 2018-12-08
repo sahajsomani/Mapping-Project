@@ -107,7 +107,7 @@ public class Canvas extends JPanel {
 			int x1 = (int) generateX(node);
 			int y1 = (int) generateY(node);
 			//draw the edge connecting it to it's neighbours
-			for (Node destination : node.getAdjList().keySet()) {
+			for (Node destination : node.getAdjList()) {
 					int x2 = (int) generateX(destination);
 					int y2 = (int) generateY(destination);
 					if(node == origin) { ox = x1; oy = y1;}
@@ -132,7 +132,7 @@ public class Canvas extends JPanel {
 			g2.drawImage(img, ox-8, oy-20, 17, 20, this);
 			g2.drawImage(img, dx-8, dy-20, 17, 20, this);
 			//print distance in miles on map
-			String full = "" + Node.pathLength(path);
+			String full = "" + Double.toString(destination.getWeight());
 			String pathlen = full.substring(0, 4);
 			g2.setColor(Color.RED);
 			g2.fillRoundRect(dx - 30, dy + 5, 30, 15, 5, 5);
