@@ -17,8 +17,10 @@ public class StreetMap {
 		if(com.contains("--directions")) {
 			String to = args[(args.length-1)];
 			String from = args[args.length -2];
-			Node origin = new Node(to, g.vertices.get(to).getLat(), g.vertices.get(to).getLon());
-			Node destination = new Node(from, g.vertices.get(from).getLat(), g.vertices.get(from).getLon());
+			//Node origin = new Node(to, g.vertices.get(to).getLat(), g.vertices.get(to).getLon());
+			//Node destination = new Node(from, g.vertices.get(from).getLat(), g.vertices.get(from).getLon());
+			Node origin = g.vertices.get(to);
+			Node destination = g.vertices.get(from);
 			List<Node> n = g.shortestPath(origin, destination);
 			System.out.println("Path: " + destination.toString());
 			System.out.println("Distance: " + Double.toString(destination.getWeight()) + " Miles");

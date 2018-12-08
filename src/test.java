@@ -1,16 +1,17 @@
-import java.util.List;
+import java.util.*;
 
 import javax.swing.JFrame;
 public class test {
 	static double width = 500;
 
 	public static void main(String[] args) {
-		Graph g = new Graph("nys.txt");
-		String to = "i238311";
-		String from = "i290070";
-		Node origin = new Node(to, g.vertices.get(to).getLat(), g.vertices.get(to).getLon());
-		Node destination = new Node(from, g.vertices.get(from).getLat(), g.vertices.get(from).getLon());
-		List<Node> n = g.shortestPath(origin, destination);
+		Graph g = new Graph("UR.txt");
+		String to = "RUSH-RHEES";
+		String from = "HOYT";
+		Node origin = g.vertices.get(to);
+		Node destination = g.vertices.get(from);
+		
+		LinkedList<Node> n = g.shortestPath(origin, destination);
 		System.out.println(n.size());
 		System.out.println(n.toString());
 		//to draw graph
