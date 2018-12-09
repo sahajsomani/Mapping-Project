@@ -14,6 +14,8 @@ public class Graph {
   //Constructing a graph from the text file
   public Graph(String filename) {
 	  vertices = new HashMap<String, Node>();
+	  maxlat = maxlon = -1 * Double.MAX_VALUE;
+	  minlat = minlon = Double.MAX_VALUE;
     try {
       String contents = new String(Files.readAllBytes(Paths.get(filename))); // reading the file
       String[] lines = contents.split("\n");

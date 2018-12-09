@@ -44,6 +44,9 @@ public class Canvas extends JPanel {
 	}
 	
 	public Canvas(Graph g, List<Node> l) {
+		for(Node n : l) {
+			System.out.println(n);
+		}
 		this.graph = g;
 		show = true;
 		path = l;
@@ -69,7 +72,6 @@ public class Canvas extends JPanel {
 		if(getWidth() > getHeight()) {
 			padding = (getWidth() - getHeight())/2;
 		}
-		
 		return ((n.getLon()-graph.minlon)/(graph.maxlon - graph.minlon)*width) + padding;
 	}
 
@@ -106,6 +108,7 @@ public class Canvas extends JPanel {
 			Node node = graph.vertices.get(s);
 			int x1 = (int) generateX(node);
 			int y1 = (int) generateY(node);
+			
 			//draw the edge connecting it to it's neighbours
 			for (Node destination : node.getAdjList()) {
 					int x2 = (int) generateX(destination);

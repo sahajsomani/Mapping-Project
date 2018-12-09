@@ -5,9 +5,9 @@ public class test {
 	static double width = 500;
 
 	public static void main(String[] args) {
-		Graph g = new Graph("UR.txt");
+		Graph g = new Graph("ur.txt");
 		String to = "RUSH-RHEES";
-		String from = "HOYT";
+		String from = "LOVEJOY";
 		Node origin = g.vertices.get(to);
 		Node destination = g.vertices.get(from);
 		
