@@ -1,3 +1,4 @@
+// Authors: Sahaj Somani, Nikita Kim
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;

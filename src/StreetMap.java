@@ -1,3 +1,5 @@
+// Authors: Sahaj Somani, Nikita Kim
+
 import java.util.*;
 import javax.swing.JFrame;
 
@@ -8,7 +10,7 @@ public class StreetMap {
 	public static void main(String[] args) {
 		String file = args[0];
 		Graph g = new Graph(file);
-		
+		System.out.println(file);
 		ArrayList<String> com = new ArrayList<String>();
 		for(String s: args) {
 			com.add(s);

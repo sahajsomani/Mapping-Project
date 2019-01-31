@@ -1,3 +1,5 @@
+// Authors: Sahaj Somani, Nikita Kim
+
 public class Edge {
 	String id;
 	double weight;

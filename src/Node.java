@@ -1,8 +1,11 @@
+// Authors: Sahaj Somani, Nikita Kim
+
 import java.util.*;
 
 public class Node implements Comparable<Node> {
   private ArrayList<Node> adjlist;
   private LinkedList<Node> pathlist;
+  private Node previous;
   private double lon;
   private double lat;
   private String id;
@@ -17,6 +20,7 @@ public class Node implements Comparable<Node> {
     this.isVisited = false; //set to false for initialization
     adjlist = new ArrayList<Node>();
     pathlist = new LinkedList<Node>();
+    this.previous = null;
     pathlist.add(this);
     this.weight = Double.MAX_VALUE;
   }//end constructor
@@ -35,6 +39,8 @@ public class Node implements Comparable<Node> {
 
   public void setPathList(LinkedList<Node> path) { this.pathlist = path; }
 
+  public void setPrevious(Node previous) { this.previous = previous; }
+
   public void addPathList(Node path) { this.pathlist.add(path); }
 
   public String getId() { return id; }
@@ -50,6 +56,8 @@ public class Node implements Comparable<Node> {
   public ArrayList<Node> getAdjList() { return adjlist; }
 
   public LinkedList<Node> getPathList() { return pathlist; }
+
+  public Node getPrevious() { return previous; }
 
   public static double computeEdge(Node start, Node end) {
     int EARTH_RADIUS = 3959;
@@ -80,7 +88,7 @@ public class Node implements Comparable<Node> {
       return -1;
     }
   }//end compareTo
- 
+
   @Override
   public String toString() {
 	  String result = "";
